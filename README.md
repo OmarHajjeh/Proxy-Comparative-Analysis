@@ -15,12 +15,15 @@ The primary goal of this experiment is to deploy each proxy in an identical virt
 
 ### 🏛️ Architecture and Setup
 
-The lab is hosted on a **virtualized environment** (VirtualBox, VMware) using five interconnected Virtual Machines (VMs) on an isolated internal network.
+The lab is hosted on a **virtualized environment** ( VMware ) using interconnected Virtual Machines (VMs) on an isolated internal network.
 
-| Role | OS | Software Tested |
-| :--- | :--- | :--- |
-| **Proxy 1** | Linux (Ubuntu) | **HAProxy** |
-| **Proxy 2** | Linux (Ubuntu) | **Nginx** |
-| **Proxy 3** | Linux (Ubuntu) | **Caddy** |
-| **Backend 1** | Linux (Ubuntu) | **Apache** (Content: "Server A") |
-| **Backend 2** | Linux (Ubuntu) | **Apache** (Content: "Server B") |
+| Role | OS | Software Tested | IP |
+| :--- | :--- | :--- | :--- |
+| **Backend 1** | Linux (Ubuntu) | **Apache** (Content: "Server A") | 192.168.100.10 |
+| **Backend 2** | Linux (Ubuntu) | **Apache** (Content: "Server B") | 192.168.100.11 |
+| **Proxy 1** | Linux (Ubuntu) | **Nginx** | 192.168.100.12 |
+| **Proxy 2** | Linux (Ubuntu) | **HAProxy** | 192.168.100.13 |
+| **Proxy 3** | Linux (Ubuntu) | **Caddy** | 192.168.100.14 |
+| **Session Cache** | Linux (Ubuntu) | **Redis** | 192.168.100.15 |
+| **Persistent Data 1** | Linux (Ubuntu) | **MySQL Master / NFS Share (primary)** | 192.168.100.16 |
+| **Persistent Data 2** | Linux (Ubuntu) | **MySQL Slave / NFS Mirror** | 192.168.100.17 |

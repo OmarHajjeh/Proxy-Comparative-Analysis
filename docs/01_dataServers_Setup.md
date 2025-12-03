@@ -101,6 +101,15 @@ GRANT ALL PRIVILEGES ON my_lab_db.* TO 'app_user'@'%';
 FLUSH PRIVILEGES;
 ```
 
+### 3.1. Create Test Table
+
+While still in the MySQL shell, create a test table to verify replication:
+
+```sql
+CREATE TABLE my_lab_db.test_table (id INT, description VARCHAR(50));
+INSERT INTO my_lab_db.test_table (id, description) VALUES (1, 'Replication Test');
+```
+
 ### 4. Lock and Get Status
 
 **Crucial Step:** We need the coordinate position of the data so the Slave knows exactly where to start reading.
@@ -180,10 +189,71 @@ Look for these two specific lines near the top of the output. Both must say **Ye
 * `Slave_IO_Running: Yes` (Connected to Master)
 * `Slave_SQL_Running: Yes` (Applying changes)
 
-✅ **If both are YES, your database replication is active.**
+### Final Verification
+
+After confirming both services are running, verify the data has replicated to Data-B.
+
+Log into MySQL on **Data-B** (Slave):
+
+```bash
+sudo mysql
+```
+
+Run these commands to check for the replicated database and table:
+
+```sql
+USE my_lab_db;
+SHOW TABLES;
+SELECT * FROM test_table;
+```
+
+✅ **If you see the `test_table` and the row with 'Replication Test', then Part 1 (MySQL Replication) is complete!** 🎉
 
 ---
 
-## Next Steps
+## Part 2: NFS Server Configuration
 
-Part 2 (NFS Server Configuration) will be added later.
+We will configure Data-A as the primary NFS file server to provide shared storage.
+
+### Step 1: Configure NFS on Data-A (Master)
+
+Create the shared directory and configure NFS exports.
+
+#### 1. Create Shared Folder
+
+```bash
+# Create the shared folder
+sudo mkdir -p /var/nfs/shared_data
+
+# Allow everyone to read/write (simple for lab)
+sudo chown nobody:nogroup /var/nfs/shared_data
+sudo chmod 777 /var/nfs/shared_data
+```
+
+#### 2. Configure NFS Exports
+
+Edit the exports configuration file:
+
+```bash
+sudo nano /etc/exports
+```
+
+Add this line to share the folder with your network:
+
+```
+/var/nfs/shared_data 192.168.100.0/24(rw,sync,no_subtree_check)
+```
+
+Save and exit (`Ctrl+O`, `Enter`, `Ctrl+X`).
+
+#### 3. Apply NFS Configuration
+
+Apply the changes and restart the NFS server:
+
+```bash
+sudo exportfs -a
+sudo systemctl restart nfs-kernel-server
+```
+
+---
+

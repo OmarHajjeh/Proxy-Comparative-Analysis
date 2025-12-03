@@ -215,7 +215,7 @@ SELECT * FROM test_table;
 
 We will configure Data-A as the primary NFS file server to provide shared storage.
 
-### Step 1: Configure NFS on Data-A (Master)
+### Step 1: Configure NFS on both Data-A & Data-B
 
 Create the shared directory and configure NFS exports.
 

@@ -18,16 +18,16 @@ The primary objective is to evaluate how each proxy handles traffic in a redunda
 ### 🏛️ Architecture & Topology
 The lab is hosted on **VMware** using an isolated **Host-Only** network. All VMs use static IPs to ensure stable communication between layers.
 
-| Role | VM Name | OS | Software | Static IP |
-| :--- | :--- | :--- | :--- | :--- |
-| **Proxy 1** | `Proxy-HA` | Ubuntu | **HAProxy** | `192.168.100.10` |
-| **Proxy 2** | `Proxy-NGX` | Ubuntu | **Nginx** | `192.168.100.11` |
-| **Proxy 3** | `Proxy-Cdy` | Ubuntu | **Caddy** | `192.168.100.12` |
-| **Web Server 1** | `Web-A` | Ubuntu | **Apache + PHP** | `192.168.100.13` |
-| **Web Server 2** | `Web-B` | Ubuntu | **Apache + PHP** | `192.168.100.14` |
-| **Session Cache**| `Redis` | Ubuntu | **Redis-Server** | `192.168.100.15` |
-| **Data Primary** | `Data-A` | Ubuntu | **MySQL (Master) + NFS** | `192.168.100.16` |
-| **Data Mirror** | `Data-B` | Ubuntu | **MySQL (Slave) + NFS** | `192.168.100.17` |
+| Role | OS | Software Tested | IP |
+| :--- | :--- | :--- | :--- |
+| **Backend 1** | Linux (Ubuntu) | **Apache** (Content: "Server A") | 192.168.100.10 |
+| **Backend 2** | Linux (Ubuntu) | **Apache** (Content: "Server B") | 192.168.100.11 |
+| **Proxy 1** | Linux (Ubuntu) | **Nginx** | 192.168.100.12 |
+| **Proxy 2** | Linux (Ubuntu) | **HAProxy** | 192.168.100.13 |
+| **Proxy 3** | Linux (Ubuntu) | **Caddy** | 192.168.100.14 |
+| **Session Cache** | Linux (Ubuntu) | **Redis** | 192.168.100.15 |
+| **Persistent Data 1** | Linux (Ubuntu) | **MySQL Master / NFS Share (primary)** | 192.168.100.16 |
+| **Persistent Data 2** | Linux (Ubuntu) | **MySQL Slave / NFS Mirror** | 192.168.100.17 |
 
 ---
 

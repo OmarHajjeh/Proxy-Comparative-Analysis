@@ -44,3 +44,9 @@ The lab is hosted on **VMware** using an isolated **Host-Only** network. All VMs
 #### 3. The Data Layer (Persistent Storage)
 * **MySQL Replication:** Configured Master-Slave replication. All data written to `Data-A` is mirrored in real-time to `Data-B`.
 * **Redundancy:** Tested "Offline Sync" by shutting down the Slave, adding data to the Master, and verifying the Slave caught up automatically upon reboot.
+
+
+### Topology 
+
+<img width="564" height="481" alt="image" src="https://github.com/user-attachments/assets/08391e47-e863-4723-861e-ce550cf469d3" />
+
